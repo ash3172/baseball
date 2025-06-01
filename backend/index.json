@@ -1,0 +1,27 @@
+import express from 'express';
+import cors from 'cors';
+import axios from 'axios';
+
+const app = express();
+const PORT = 3001;
+
+app.use(cors());
+
+// プロ野球速報を取得するエンドポイント
+app.get('/api/games', async (req, res) => {
+  try {
+    // 例: 非公式APIやRSSを使う場合
+    // Yahooスポーツのプロ野球速報RSS
+    const rssUrl = 'https://news.yahoo.co.jp/rss/topics/sports/baseball.xml';
+    const { data } = await axios.get(rssUrl);
+    // 本格的にはxml2jsなどでパース
+    // ここではサンプルとしてそのまま返す
+    res.type('text/xml').send(data);
+  } catch (error) {
+    res.status(500).json({ error: '試合情報の取得に失敗しました' });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Backend API server running at http://localhost:${PORT}`);
+});
