@@ -1,0 +1,8 @@
+{
+  "name": "pro-baseball-live",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ]
+}
